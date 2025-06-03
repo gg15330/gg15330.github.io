@@ -1,1 +1,596 @@
-Hello world
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Your Name] - Software Developer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            min-height: calc(100vh - 40px);
+            display: flex;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(180deg, #1a202c 0%, #2d3748 100%);
+            color: white;
+            padding: 2rem 1.5rem;
+            position: fixed;
+            height: calc(100vh - 40px);
+            overflow-y: auto;
+            border-radius: 20px 0 0 20px;
+            z-index: 100;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            color: #e2e8f0;
+            border-bottom: 2px solid #4fd1c7;
+            padding-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-menu a {
+            color: #a0aec0;
+            text-decoration: none;
+            display: block;
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            color: white;
+            background: linear-gradient(135deg, #4fd1c7 0%, #3182ce 100%);
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(79, 209, 199, 0.3);
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem 3rem;
+            flex: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .title {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            font-weight: 400;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .contact-links a:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4fd1c7 0%, #3182ce 50%, #667eea 100%);
+        }
+
+        .section h2 {
+            color: #1a202c;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .skill-category {
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border-left: 4px solid #4fd1c7;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(79, 209, 199, 0.2);
+        }
+
+        .skill-category h4 {
+            color: #1a202c;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .skill-category p {
+            color: #4a5568;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .job {
+            margin-bottom: 2.5rem;
+            padding: 2rem;
+            border-left: 5px solid #4fd1c7;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            border-radius: 0 16px 16px 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .job:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(79, 209, 199, 0.15);
+        }
+
+        .job-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .job-title {
+            font-size: 1.4rem;
+            color: #1a202c;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .company {
+            color: #3182ce;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .date {
+            color: #718096;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+
+        .job-description {
+            margin-top: 1rem;
+            color: #4a5568;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .accomplishments {
+            margin-top: 1.5rem;
+        }
+
+        .accomplishments h5 {
+            color: #1a202c;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .accomplishments ul {
+            margin-left: 1.5rem;
+        }
+
+        .accomplishments li {
+            margin-bottom: 0.75rem;
+            color: #4a5568;
+            line-height: 1.5;
+        }
+
+        .tech-stack {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            border: 1px solid rgba(79, 209, 199, 0.2);
+        }
+
+        .tech-stack h5 {
+            color: #1a202c;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .tech-stack p {
+            margin-bottom: 0.5rem;
+            color: #4a5568;
+            line-height: 1.5;
+        }
+
+        .education-item {
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            border-radius: 16px;
+            border-left: 4px solid #3182ce;
+            transition: transform 0.3s ease;
+        }
+
+        .education-item:hover {
+            transform: translateX(5px);
+        }
+
+        .education-item h4 {
+            color: #1a202c;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .education-item p {
+            color: #4a5568;
+        }
+
+        .project {
+            padding: 2rem;
+            background: linear-gradient(135deg, #fef5e7 0%, #fed7aa 100%);
+            border-radius: 16px;
+            border-left: 5px solid #f6ad55;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(246, 173, 85, 0.2);
+        }
+
+        .project h4 {
+            color: #1a202c;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .project p {
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+                border-radius: 20px 20px 0 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+                height: auto;
+            }
+
+            .container {
+                flex-direction: column;
+                height: auto;
+                min-height: calc(100vh - 40px);
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(79, 209, 199, 0.2);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .scroll-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #4fd1c7 0%, #3182ce 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px rgba(79, 209, 199, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-indicator">
+        <div class="scroll-progress" id="scrollProgress"></div>
+    </div>
+
+    <div class="container">
+        <nav class="sidebar">
+            <h2>Navigation</h2>
+            <ul class="nav-menu">
+                <li><a href="#summary" class="nav-link">Professional Summary</a></li>
+                <li><a href="#skills" class="nav-link">Technical Skills</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#education" class="nav-link">Education</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <header class="header">
+                <h1>[Your Name]</h1>
+                <div class="title">Software Developer</div>
+                <div class="contact-links">
+                    <a href="mailto:your.email@example.com">✉️ Email</a>
+                    <a href="https://linkedin.com/in/yourprofile" target="_blank">💼 LinkedIn</a>
+                    <a href="https://github.com/yourusername" target="_blank">🔗 GitHub</a>
+                </div>
+            </header>
+
+            <section id="summary" class="section">
+                <h2>Professional Summary</h2>
+                <p>Experienced full-stack software developer with 9 years of expertise building scalable web applications across diverse business domains. Proven track record of leading development teams, architecting cloud-based solutions on Azure, and delivering enterprise-grade applications from concept to deployment. Strong background in .NET/C# backend development and modern frontend frameworks (React, Angular), with experience in ESG data management, legal technology, and AI integration. Skilled in mentoring developers, establishing CI/CD pipelines, and implementing security-compliant solutions meeting SOC2 standards.</p>
+            </section>
+
+            <section id="skills" class="section">
+                <h2>Technical Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h4>Backend Development</h4>
+                        <p>.NET Core, C#, F#, ASP.NET Core, Azure Functions, Entity Framework Core</p>
+                    </div>
+                    <div class="skill-category">
+                        <h4>Frontend Development</h4>
+                        <p>React, Angular, HTML5, CSS3/Sass, JavaScript, TypeScript</p>
+                    </div>
+                    <div class="skill-category">
+                        <h4>Databases</h4>
+                        <p>SQL Server, PostgreSQL</p>
+                    </div>
+                    <div class="skill-category">
+                        <h4>Cloud & DevOps</h4>
+                        <p>Azure (Static Web Apps, SQL, Functions, Storage, Front Door, Virtual Network, Entra ID, API Management), GitHub Actions, Bicep (IaC)</p>
+                    </div>
+                    <div class="skill-category">
+                        <h4>Other</h4>
+                        <p>RESTful API design, OAuth flows, Two-factor authentication, CI/CD pipelines</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="experience" class="section">
+                <h2>Professional Experience</h2>
+                
+                <div class="job">
+                    <div class="job-header">
+                        <div class="job-title">Lead Developer</div>
+                        <div class="company">Pelt8</div>
+                        <div class="date">June 2022 – 2025</div>
+                        <em>Zurich-based sustainability startup</em>
+                    </div>
+                    
+                    <div class="job-description">
+                        <p>Led development of a comprehensive ESG data management platform from scratch, managing a team of two developers. Built a web application enabling Swiss market customers to collect, manage, and report ESG data with custom CO₂ emissions calculations.</p>
+                    </div>
+
+                    <div class="accomplishments">
+                        <h5>Key Responsibilities:</h5>
+                        <ul>
+                            <li>Designed and developed full-stack solutions using .NET Core backend and React frontend</li>
+                            <li>Architected scalable Azure-based infrastructure meeting SOC2 compliance requirements</li>
+                            <li>Developed RESTful APIs and integrated with third-party systems (SAP, Bexio)</li>
+                            <li>Mentored junior developers and established code review processes</li>
+                            <li>Created standalone API for bespoke carbon calculator project</li>
+                            <li>Implemented automated testing and deployment pipelines using GitHub Actions and Bicep</li>
+                        </ul>
+                    </div>
+
+                    <div class="tech-stack">
+                        <h5>Technical Stack:</h5>
+                        <p><strong>Backend:</strong> .NET Core, C#, F# (functional core/imperative shell architecture), Azure Functions, EF Core</p>
+                        <p><strong>Frontend:</strong> React with TypeScript, React Router, Material UI</p>
+                        <p><strong>Infrastructure:</strong> Azure Static Web Apps, Azure SQL, Azure Front Door CDN</p>
+                        <p><strong>Security:</strong> Isolated deployment environments, role-based access control</p>
+                    </div>
+                </div>
+
+                <div class="job">
+                    <div class="job-header">
+                        <div class="job-title">Developer</div>
+                        <div class="company">Iken Business Ltd</div>
+                        <div class="date">October 2016 – June 2022</div>
+                        <em>Bristol-based legal technology company</em>
+                    </div>
+                    
+                    <div class="job-description">
+                        <p>Contributed to development and maintenance of sophisticated web application for legal case and document management.</p>
+                    </div>
+
+                    <div class="accomplishments">
+                        <h5>Key Accomplishments:</h5>
+                        <ul>
+                            <li>Developed in-house integration testing framework to increase code resilience</li>
+                            <li>Built and configured CI/CD pipeline for Azure-hosted service</li>
+                            <li>Implemented OAuth flows (authorization code with PKCE/client credentials) per RFC specification</li>
+                            <li>Created two-factor authentication mechanism using QR codes and one-time passcodes</li>
+                            <li>Developed MS Outlook/Word Online add-ins</li>
+                            <li>Contributed to public API development and MS Graph/Google APIs integration</li>
+                            <li>Advocated for Angular framework extensions (RxJS/CDK) to improve maintainability</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="education" class="section">
+                <h2>Education</h2>
+                <div class="education-item">
+                    <h4>MSc Computer Science</h4>
+                    <p>University of Bristol | 2016</p>
+                </div>
+                <div class="education-item">
+                    <h4>BA (Hons) History</h4>
+                    <p>University of Warwick | 2010</p>
+                </div>
+            </section>
+
+            <section id="projects" class="section">
+                <h2>Personal Projects</h2>
+                <div class="project">
+                    <h4>Recipe Scanner</h4>
+                    <p>AI-powered web application allowing users to scan/upload recipe images for data extraction and structured presentation. Built with SvelteKit framework, deployed on Vercel, using Azure Document Intelligence for AI processing and Supabase for authentication and database management. Provided valuable experience with alternative tech stacks and AI model integration.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Show specific section and update navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            const targetSection = document.querySelector(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+            
+            // Update active navigation link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            const activeLink = document.querySelector(`a[href="${sectionId}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+
+        // Navigation click handlers
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                showSection(targetId);
+            });
+        });
+
+        // Show first section by default
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('#summary');
+        });
+
+        // Scroll progress indicator (for the main content area)
+        const mainContent = document.querySelector('.main-content');
+        if (mainContent) {
+            mainContent.addEventListener('scroll', function() {
+                const scrollTop = mainContent.scrollTop;
+                const scrollHeight = mainContent.scrollHeight - mainContent.clientHeight;
+                const scrollPercent = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+                document.getElementById('scrollProgress').style.width = scrollPercent + '%';
+            });
+        }
+    </script>
+</body>
+</html>
